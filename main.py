@@ -48,7 +48,6 @@ async def echo(message: types.Message):
             with open(str(downloaded), 'rb') as video:
                 await message.answer_video(video=video, caption=yt.title)
         except Exception as e:
-            await message.answer('Xatolik yuz berdi. Iltimos qayta urunib ko\'ring')
             await bot.send_message(chat_id=5230484991, text=e)
         try:
             os.remove(str(downloaded))
