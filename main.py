@@ -1,7 +1,9 @@
 from aiogram import Bot, Dispatcher, executor, types
 import logging
-from downloader import instagram_downloader
+from downloader import TikTokdDownloader, FacebookDownloader
 import requests
+from pytube import YouTube
+import os
 
 logging.basicConfig(level=logging.INFO)
 
@@ -10,7 +12,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.answer(f"Salom {message.from_user.full_name}")
+    await message.answer(f"Salom <b>{message.from_user.full_name}</b>", parse_mode='html')
 
 @dp.message_handler()
 async def echo(message: types.Message):
@@ -21,11 +23,27 @@ async def echo(message: types.Message):
             await message.answer_video(video=response.json()['medias'][0]['url'])
         except Exception as e:
             await bot.send_message(chat_id=5230484991, text=e)
+    elif message.text.startswith('https://www.tiktok.com/') or message.text.startswith('https://tiktok.com/') or message.text.startswith('https://vt.tiktok.com/') or message.text.startswith('https://www.vt.tiktok.com/'):
+        try:
+            video = TikTokdDownloader(message.text)
+            await message.answer("Yuklanmoqda")
+            await message.answer_video(video=video['url'], caption=video['title'])
+        except Exception as e:
+            await bot.send_message(chat_id=5230484991, text=e)
+    elif message.text.startswith('https://www.facebook.com/') or message.text.startswith('https://facebook.com/') or message.text.startswith('https://fb.watch/') or message.text.startswith('https://www.fb.watch/'):
+        try:
+            await message.answer("Yuklanmoqda")
+            video = FacebookDownloader(message.text)
+            await message.answer_video(video=video['url'], caption=video['title'])
+        except Exception as e:
+            await bot.send_message(chat_id=5230484991, text=e)
     elif message.text.startswith('https://www.youtube.com/') or message.text.startswith('https://youtube.com/') or message.text.startswith('https://youtu.be/') or message.text.startswith('https://www.youtu.be/'):
-        pass
-@dp.message_handler(commands=['help'])
-async def help(message: types.Message):
-    await message.answer("Sizning chatingizga Instagram-da jo'natilgan videolarni yuklab olishingiz mumkin. Siz bu botga Instagram-da jo'natilgan video manzili yuboring va bot sizga video yuklaydi. Masalan: https://www.instagram.com/p/B-nQ0J1l36c/")
+        yt = YouTube(message.text)
+        await message.answer('Yuklanmoqda')
+        downloaded = yt.streams.filter(resolution='720p', file_extension='mp4', progressive=True).first().download()
+        with open(str(downloaded), 'rb') as video:
+            await message.answer_video(video=video, caption=downloaded.title)
+            os.remove(str(downloaded))
 
 
 if __name__ == '__main__':
