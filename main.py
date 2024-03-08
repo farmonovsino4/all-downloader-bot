@@ -38,12 +38,18 @@ async def echo(message: types.Message):
         except Exception as e:
             await bot.send_message(chat_id=5230484991, text=e)
     elif message.text.startswith('https://www.youtube.com/') or message.text.startswith('https://youtube.com/') or message.text.startswith('https://youtu.be/') or message.text.startswith('https://www.youtu.be/'):
-        yt = YouTube(message.text)
-        await message.answer('Yuklanmoqda')
-        downloaded = yt.streams.filter(resolution='720p', file_extension='mp4', progressive=True).first().download()
-        with open(str(downloaded), 'rb') as video:
-            await message.answer_video(video=video, caption=downloaded.title)
+        try:
+            yt = YouTube(message.text)
+            await message.answer('Yuklanmoqda')
+            downloaded = yt.streams.filter(resolution='720p', file_extension='mp4', progressive=True).first().download()
+            with open(str(downloaded), 'rb') as video:
+                await message.answer_video(video=video, caption=downloaded.title)
+        except Exception as e:
+            await bot.send_message(chat_id=5230484991, text=e)
+        try:
             os.remove(str(downloaded))
+        except:
+            pass
 
 
 if __name__ == '__main__':
