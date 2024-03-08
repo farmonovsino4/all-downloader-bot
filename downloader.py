@@ -10,7 +10,7 @@ def instagram_downloader(url):
     querystring = {"url": url}
 
     headers = {
-        "X-RapidAPI-Key": env.str('RAPIDAPI_KEY'),
+        "X-RapidAPI-Key": "3ced9d8030msh7126f2d249ae58ep13c95ajsn5107fb57f8a5",
         "X-RapidAPI-Host": "instagram-post-and-reels-downloader.p.rapidapi.com"
     }
 
