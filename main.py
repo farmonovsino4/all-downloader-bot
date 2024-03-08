@@ -4,10 +4,14 @@ from downloader import TikTokdDownloader, FacebookDownloader
 import requests
 from pytube import YouTube
 import os
+from environs import Env
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token="5904607271:AAH-edy50mxak7BhgfeCB-9oLnlrK5QMPiM")
+env = Env()
+env.read_env()
+
+bot = Bot(token=env.str('TOKEN'))
 dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
