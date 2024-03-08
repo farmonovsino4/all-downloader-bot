@@ -1,6 +1,7 @@
 import requests
 from environs import Env
 from pytube import YouTube
+from pprint import pprint as print
 
 
 env = Env()
@@ -31,7 +32,9 @@ def FacebookDownloader(url):
     }
 
     response = requests.get(urll, headers=headers, params=querystring)
-
-    return {'url': response.json()['links']['Download High Quality'], 'title': response.json()['title']}
+    try:
+        return {'url': response.json()['links']['Download High Quality'], 'title': response.json()['title']}
+    except KeyError:
+        return {'url': response.json()['links']['Download Low Quality'], 'title': response.json()['title']}
 
 #'https://youtu.be/nT1dt6j4R8g?si=z7zDZ5PiiGQ406b0'
