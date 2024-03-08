@@ -5,6 +5,7 @@ import requests
 from pytube import YouTube
 import os
 from environs import Env
+from keyboards import lang_button
 
 logging.basicConfig(level=logging.INFO)
 
@@ -16,7 +17,16 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.answer(f"Salom <b>{message.from_user.full_name}</b>", parse_mode='html')
+    msg = await message.answer("choose language | tilni tanlang | выберите язык", reply_markup=lang_button)
+
+@dp.message_handler()
+async def lang(message: types.Message):
+    if message.text == 'en':
+        await message.answer(f"Hello <b>{message.from_user.first_name}</b>\i'm downloader bot\ni can download video from <b>instagram, tiktok, facebook, youtube</b>", parse_mode='html')
+    elif message.text == 'ru':
+        await message.answer(f"Здравствуйте, <b>{message.from_user.first_name}</b>\я бот-загрузчик\nя могу скачивать видео с <b>instagram, tiktok, facebook, youtube</b>", parse_mode='html')
+    else:
+        await message.answer(f"Salom, <b>{message.from_user.first_name}</b>\men video yuklovchi botman\nmen <b>instagram, tiktok, facebook, youtube</b>dan video yuklayolaman", parse_mode='html')
 
 @dp.message_handler()
 async def echo(message: types.Message):
