@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
 lang_button = ReplyKeyboardMarkup(row_width=1, resize_keyboard=True).add(
     KeyboardButton(text='🇺🇸English', callback_data='en'),

@@ -5,7 +5,7 @@ import requests
 from pytube import YouTube
 import os
 from environs import Env
-from keyboards import lang_button
+from keyboards import lang_button, ReplyKeyboardRemove
 
 logging.basicConfig(level=logging.INFO)
 
@@ -22,11 +22,11 @@ async def start(message: types.Message):
 @dp.message_handler()
 async def lang(message: types.Message):
     if message.text == 'en':
-        await message.answer(f"Hello <b>{message.from_user.first_name}</b>\i'm downloader bot\ni can download video from <b>instagram, tiktok, facebook, youtube</b>", parse_mode='html')
+        await message.answer(f"Hello <b>{message.from_user.first_name}</b>\i'm downloader bot\ni can download video from <b>instagram, tiktok, facebook, youtube</b>", parse_mode='html', reply_markup=ReplyKeyboardRemove())
     elif message.text == 'ru':
-        await message.answer(f"Здравствуйте, <b>{message.from_user.first_name}</b>\я бот-загрузчик\nя могу скачивать видео с <b>instagram, tiktok, facebook, youtube</b>", parse_mode='html')
+        await message.answer(f"Здравствуйте, <b>{message.from_user.first_name}</b>\я бот-загрузчик\nя могу скачивать видео с <b>instagram, tiktok, facebook, youtube</b>", parse_mode='html', reply_markup=ReplyKeyboardRemove())
     else:
-        await message.answer(f"Salom, <b>{message.from_user.first_name}</b>\men video yuklovchi botman\nmen <b>instagram, tiktok, facebook, youtube</b>dan video yuklayolaman", parse_mode='html')
+        await message.answer(f"Salom, <b>{message.from_user.first_name}</b>\men video yuklovchi botman\nmen <b>instagram, tiktok, facebook, youtube</b>dan video yuklayolaman", parse_mode='html', reply_markup=ReplyKeyboardRemove())
 
 @dp.message_handler()
 async def echo(message: types.Message):
