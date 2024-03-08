@@ -19,7 +19,7 @@ dp = Dispatcher(bot)
 async def start(message: types.Message):
     msg = await message.answer("choose language | tilni tanlang | выберите язык", reply_markup=lang_button)
 
-@dp.message_handler()
+@dp.message_handler(text=['🇺🇸English', '🇷🇺Русский', '🇺🇿Uzbek'])
 async def lang(message: types.Message):
     if message.text == '🇺🇸English':
         await message.answer(f"Hello <b>{message.from_user.first_name}</b>\i'm downloader bot\ni can download video from <b>instagram, tiktok, facebook, youtube</b>", parse_mode='html', reply_markup=ReplyKeyboardRemove())
