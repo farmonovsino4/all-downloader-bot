@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher, executor, types
 import logging
-from downloader import TikTokdDownloader, FacebookDownloader
+from downloader import TikTokdDownloader, FacebookDownloader, PinterestDownloader
 import requests
 from pytube import YouTube
 import os
@@ -68,6 +68,13 @@ async def echo(message: types.Message):
             os.remove(str(downloaded))
         except:
             pass
+    elif message.text.startswith("https://www.pinterest.com/") or message.text.startswith("https://pin.it/"):
+        try:
+            await message.answer("Yuklanmoqda...")
+            video = PinterestDownloader(message.text)
+            await message.answer_video(video=video['url'], caption=video['title'])
+        except Exception as e:
+            await bot.send_message(chat_id=5230484991, text=e)
 
 
 if __name__ == '__main__':

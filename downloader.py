@@ -48,6 +48,6 @@ def PinterestDownloader(url):
     response = requests.get(urll, headers=headers, params=querystring)
     return {'url': response.json()['data']['url'], 'title': response.json()['data']['title']}
 
-print(PinterestDownloader("https://pin.it/6TDuP89Ze"))
+print(PinterestDownloader("https://www.pinterest.com/pin/1140536674373849330/"))
 
 #'https://youtu.be/nT1dt6j4R8g?si=z7zDZ5PiiGQ406b0'
