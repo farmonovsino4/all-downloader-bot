@@ -1,7 +1,5 @@
 import requests
 from environs import Env
-from pytube import YouTube
-from pprint import pprint as print
 
 
 env = Env()
@@ -48,7 +46,8 @@ def PinterestDownloader(url):
     }
 
     response = requests.get(urll, headers=headers, params=querystring)
+    return {'url': response.json()['data']['url'], 'title': response.json()['data']['title']}
 
-print(PinterestDownloader("https://pin.it/61r612A4Y"))
+print(PinterestDownloader("https://pin.it/6TDuP89Ze"))
 
 #'https://youtu.be/nT1dt6j4R8g?si=z7zDZ5PiiGQ406b0'
