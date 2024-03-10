@@ -36,5 +36,19 @@ def FacebookDownloader(url):
         return {'url': response.json()['links']['Download High Quality'], 'title': response.json()['title']}
     except KeyError:
         return {'url': response.json()['links']['Download Low Quality'], 'title': response.json()['title']}
+    
+def PinterestDownloader(url):
+    urll = "https://pinterest-video-and-image-downloader.p.rapidapi.com/pinterest"
+
+    querystring = {"url": url}
+
+    headers = {
+        "X-RapidAPI-Key": env.str('RAPIDAPI_KEY'),
+        "X-RapidAPI-Host": "pinterest-video-and-image-downloader.p.rapidapi.com"
+    }
+
+    response = requests.get(urll, headers=headers, params=querystring)
+
+print(PinterestDownloader("https://pin.it/61r612A4Y"))
 
 #'https://youtu.be/nT1dt6j4R8g?si=z7zDZ5PiiGQ406b0'
